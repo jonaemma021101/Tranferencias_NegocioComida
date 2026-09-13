@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8f1d22">
+    <title>Antojitos Itzel | Pago por transferencia</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --rojo: #8f1d22;
+            --rojo-oscuro: #5f1117;
+            --verde: #1f6b45;
+            --crema: #fff8e9;
+            --mostaza: #d79a24;
+            --texto: #30231d;
+            --blanco: #ffffff;
+            --sombra: 0 18px 45px rgba(75, 35, 18, .14);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+            min-width: 0;
+            color: var(--texto);
+            font-family: "DM Sans", sans-serif;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(215,154,36,.12) 0 3px, transparent 4px),
+                radial-gradient(circle at 90% 30%, rgba(143,29,34,.08) 0 3px, transparent 4px),
+                var(--crema);
+            background-size: 28px 28px, 34px 34px, auto;
+        }
+
+        body::before {
+            content: "";
+            display: block;
+            height: 10px;
+            background: repeating-linear-gradient(
+                135deg,
+                var(--rojo) 0 18px,
+                #fff 18px 36px,
+                var(--verde) 36px 54px,
+                #fff 54px 72px
+            );
+        }
+
+        .contenedor {
+            width: min(1100px, 92%);
+            margin: auto;
+        }
+
+        header {
+            padding: 30px 0 24px;
+            text-align: center;
+        }
+
+        .marca {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 13px;
+            color: var(--rojo);
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            max-width: 100%;
+        }
+
+        .marca::before,
+        .marca::after {
+            content: "✦";
+            color: var(--mostaza);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: "Playfair Display", Georgia, serif;
+        }
+
+        h1 {
+            margin: 16px auto 10px;
+            max-width: 850px;
+            font-size: clamp(2.2rem, 5vw, 4.5rem);
+            line-height: 1.05;
+            color: var(--rojo-oscuro);
+        }
+
+        .subtitulo {
+            max-width: 650px;
+            margin: auto;
+            font-size: 1.08rem;
+            line-height: 1.7;
+            color: #654c3e;
+        }
+
+        .decoracion {
+            margin: 22px auto;
+            color: var(--mostaza);
+            letter-spacing: 9px;
+            font-size: 1.2rem;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: stretch;
+            margin: 25px 0 38px;
+        }
+
+        .imagen-card {
+            min-height: 440px;
+            overflow: hidden;
+            border-radius: 25px;
+            box-shadow: var(--sombra);
+            border: 7px solid white;
+            background: #ddd;
+        }
+
+        .imagen-card img {
+            width: 100%;
+            height: 100%;
+            min-height: 440px;
+            display: block;
+            object-fit: cover;
+        }
+
+        .mensaje {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 38px;
+            border-radius: 25px;
+            color: white;
+            background:
+                linear-gradient(145deg, rgba(95,17,23,.96), rgba(143,29,34,.93)),
+                url("comida.png") center/cover;
+            box-shadow: var(--sombra);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mensaje::after {
+            content: "🌶";
+            position: absolute;
+            right: 20px;
+            bottom: -20px;
+            font-size: 9rem;
+            opacity: .12;
+            transform: rotate(-20deg);
+        }
+
+        .etiqueta {
+            color: #ffe3a0;
+            text-transform: uppercase;
+            font-size: .78rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .mensaje h2 {
+            font-size: clamp(1.9rem, 4vw, 3rem);
+            line-height: 1.1;
+            margin: 13px 0;
+        }
+
+        .mensaje p {
+            line-height: 1.75;
+            color: #fff5e7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sello {
+            display: inline-block;
+            width: fit-content;
+            max-width: 100%;
+            margin-top: 15px;
+            padding: 10px 15px;
+            border: 1px solid rgba(255,255,255,.5);
+            border-radius: 50px;
+            font-size: .88rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .seccion-titulo {
+            text-align: center;
+            margin: 0 0 24px;
+        }
+
+        .seccion-titulo h2 {
+            color: var(--rojo-oscuro);
+            font-size: 2rem;
+            margin: 0 0 8px;
+        }
+
+        .seccion-titulo p {
+            color: #745c4c;
+            margin: 0;
+        }
+
+        .pagos {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .tarjeta-pago {
+            width: min(100%, 550px);
+            background: rgba(255,255,255,.94);
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: var(--sombra);
+            border: 1px solid #f0dfc1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tarjeta-pago::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 7px;
+            background: linear-gradient(
+                90deg,
+                var(--rojo),
+                var(--mostaza),
+                var(--verde)
+            );
+        }
+
+        .banco {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 85px;
+            margin: 3px 0 20px;
+        }
+
+        .banco img {
+            width: min(100%, 280px);
+            max-height: 85px;
+            object-fit: contain;
+        }
+
+        .tarjeta-pago h3 {
+            text-align: center;
+            font-size: 1.45rem;
+            color: var(--rojo-oscuro);
+            margin: 0 0 6px;
+        }
+
+        .tipo-cuenta {
+            text-align: center;
+            color: var(--verde);
+            font-weight: 700;
+            font-size: .9rem;
+            margin-bottom: 22px;
+        }
+
+        .campo {
+            margin-top: 18px;
+        }
+
+        .campo label {
+            display: block;
+            font-size: .78rem;
+            font-weight: 800;
+            color: #765d4c;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            margin-bottom: 8px;
+        }
+
+        .tarjeta-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px;
+            background: #fff8ed;
+            border: 1px solid #ead9bd;
+            border-radius: 12px;
+            width: 100%;
+        }
+
+        .tarjeta-display span {
+            flex: 1;
+            min-width: 0;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            font-weight: 700;
+            font-size: .95rem;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+            border-radius: 9px;
+            padding: 9px 12px;
+            color: white;
+            background: var(--rojo);
+            font-weight: 700;
+            transition: .2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        button:hover {
+            background: var(--rojo-oscuro);
+            transform: translateY(-1px);
+        }
+
+        button.copiado {
+            background: var(--verde);
+        }
+
+        .aviso {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            background: #f3ead7;
+            border-left: 5px solid var(--mostaza);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 42px;
+            color: #624b3b;
+            line-height: 1.6;
+        }
+
+        .aviso strong {
+            color: var(--rojo-oscuro);
+        }
+
+        footer {
+            color: white;
+            background: var(--rojo-oscuro);
+            text-align: center;
+            padding: 25px 15px;
+            line-height: 1.7;
+        }
+
+        footer strong {
+            color: #ffd981;
+        }
+
+        @media (max-width: 780px) {
+
+            .contenedor {
+                width: 94%;
+            }
+
+            header {
+                padding: 24px 0 18px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin: 15px 0 30px;
+            }
+
+            .imagen-card {
+                min-height: 320px;
+                height: 320px;
+                border-width: 5px;
+            }
+
+            .imagen-card img {
+                min-height: 0;
+                height: 100%;
+            }
+
+            .mensaje {
+                padding: 30px 25px;
+            }
+
+            .mensaje h2 {
+                font-size: 2.2rem;
+            }
+
+            .pagos {
+                width: 100%;
+            }
+
+            .tarjeta-pago {
+                width: 100%;
+                padding: 22px;
+            }
+
+            .tarjeta-display {
+                width: 100%;
+            }
+
+            .aviso {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .contenedor {
+                width: 92%;
+            }
+
+            body::before {
+                height: 7px;
+            }
+
+            header {
+                padding: 20px 0 15px;
+            }
+
+            .marca {
+                width: 100%;
+                font-size: .78rem;
+                gap: 7px;
+                letter-spacing: .3px;
+            }
+
+            .marca::before,
+            .marca::after {
+                font-size: 1rem;
+            }
+
+            h1 {
+                font-size: 2.25rem;
+                margin-top: 12px;
+            }
+
+            .subtitulo {
+                font-size: .94rem;
+                line-height: 1.6;
+            }
+
+            .decoracion {
+                margin: 15px auto;
+                font-size: 1rem;
+                letter-spacing: 6px;
+            }
+
+            .hero {
+                margin-top: 10px;
+            }
+
+            .imagen-card {
+                min-height: 250px;
+                height: 250px;
+                border-radius: 20px;
+            }
+
+            .mensaje {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+
+            .mensaje h2 {
+                font-size: 1.9rem;
+            }
+
+            .mensaje p {
+                font-size: .94rem;
+                line-height: 1.6;
+            }
+
+            .sello {
+                font-size: .8rem;
+                padding: 9px 12px;
+            }
+
+            .seccion-titulo {
+                margin-bottom: 20px;
+            }
+
+            .seccion-titulo h2 {
+                font-size: 1.7rem;
+            }
+
+            .seccion-titulo p {
+                font-size: .88rem;
+                line-height: 1.5;
+            }
+
+            .tarjeta-pago {
+                padding: 18px;
+                border-radius: 18px;
+            }
+
+            .banco {
+                min-height: 65px;
+                margin-bottom: 17px;
+            }
+
+            .banco img {
+                max-height: 65px;
+                width: min(100%, 240px);
+            }
+
+            .tarjeta-pago h3 {
+                font-size: 1.3rem;
+            }
+
+            .tipo-cuenta {
+                font-size: .85rem;
+                margin-bottom: 18px;
+            }
+
+            .campo {
+                margin-top: 16px;
+            }
+
+            .campo label {
+                font-size: .72rem;
+                line-height: 1.4;
+            }
+
+            .tarjeta-display {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 9px;
+                padding: 12px;
+            }
+
+            .tarjeta-display span {
+                width: 100%;
+                text-align: center;
+                font-size: .88rem;
+                line-height: 1.5;
+                padding: 3px;
+            }
+
+            .tarjeta-display button {
+                width: 100%;
+                padding: 11px;
+            }
+
+            .aviso {
+                gap: 10px;
+                padding: 15px;
+                font-size: .87rem;
+                line-height: 1.55;
+            }
+
+            footer {
+                padding: 22px 12px;
+                font-size: .88rem;
+            }
+        }
+
+        @media (max-width: 350px) {
+
+            .contenedor {
+                width: 94%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .marca {
+                font-size: .7rem;
+            }
+
+            .mensaje h2 {
+                font-size: 1.7rem;
+            }
+
+            .tarjeta-pago {
+                padding: 15px;
+            }
+
+            .tarjeta-display span {
+                font-size: .82rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="contenedor">
+        <div class="marca">Sabor tradicional mexicano</div>
+
+        <h1>Antojitos Itzel</h1>
+
+        <p class="subtitulo">
+            Gracias por elegirnos. Disfruta el auténtico sabor de la comida mexicana,
+            preparada con mucho amor.
+        </p>
+
+        <div class="decoracion">✦ ✦ ✦</div>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="hero">
+
+            <div class="imagen-card">
+                <img src="comida.jpeg" alt="Logo de Antojitos Mexicanos">
+            </div>
+
+            <div class="mensaje">
+                <span class="etiqueta">Bienvenidos a nuestra cocina</span>
+
+                <h2>¡Gracias por tu preferencia!</h2>
+
+                <p>
+                    Para facilitar tu pago, ponemos a tu disposición nuestros datos
+                    de transferencia. Revisa cuidadosamente el nombre del titular
+                    antes de confirmar tu pago.
+                </p>
+
+                <span class="sello">
+                    🌮 Sabor casero · Tradición · Calidad
+                </span>
+            </div>
+
+        </section>
+
+        <section>
+
+            <div class="seccion-titulo">
+                <h2>Formas de pago</h2>
+                <p>Selecciona los datos que necesites y cópialos con un clic.</p>
+            </div>
+
+            <div class="pagos">
+
+                <article class="tarjeta-pago">
+
+                    <div class="banco">
+                        <img src="bancoazteca.png" alt="Banco Azteca">
+                    </div>
+
+                    <h3>Cuenta principal</h3>
+
+                    <div class="tipo-cuenta">
+                        Transferencia bancaria
+                    </div>
+
+                    <div class="campo">
+
+                        <label>Número de tarjeta / cuenta / CLABE</label>
+
+                        <div class="tarjeta-display">
+
+                            <span id="cuenta-1" class="numero-tarjeta">
+                                4027 6658 4793 0337
+                            </span>
+
+                            <button
+                                type="button"
+                                class="copy-btn"
+                                data-target="cuenta-1"
+                                onclick="copyToClipboard(this)">
+                                Copiar
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="campo">
+
+                        <label>Nombre del titular</label>
+
+                        <div class="tarjeta-display">
+
+                            <span id="titular-1" class="numero-tarjeta">
+                                Sonia Dominguez
+                            </span>
+
+                            <button
+                                type="button"
+                                class="copy-btn"
+                                data-target="titular-1"
+                                onclick="copyToClipboard(this)">
+                                Copiar
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <div class="aviso">
+
+            <div>🔒</div>
+
+            <div>
+                <strong>Antes de realizar tu pago:</strong><br>
+                Verifica que el banco, el número de cuenta y el nombre del titular
+                sean correctos.
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        Gracias por apoyar nuestro negocio y disfrutar el sabor<br>
+        <small>© 2026 Todos los derechos reservados.</small>
+        <small>Realizado por Ing.Jonathan Emmanuel Hernández Ortiz</small>
+    </footer>
+
+    <script>
+        function copyToClipboard(boton) {
+            const id = boton.getAttribute("data-target");
+            const elemento = document.getElementById(id);
+
+            if (!elemento) {
+                return;
+            }
+
+            let texto = elemento.textContent.trim();
+
+            if (id === "cuenta-1") {
+                texto = texto.replace(/\s/g, "");
+            }
+
+            copiarTexto(texto, boton);
+        }
+
+        function copiarTexto(texto, boton) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(texto)
+                    .then(() => mostrarCopiado(boton))
+                    .catch(() => copiarAlternativo(texto, boton));
+            } else {
+                copiarAlternativo(texto, boton);
+            }
+        }
+
+        function copiarAlternativo(texto, boton) {
+            const auxiliar = document.createElement("textarea");
+
+            auxiliar.value = texto;
+            auxiliar.style.position = "fixed";
+            auxiliar.style.left = "-9999px";
+            auxiliar.style.top = "0";
+            auxiliar.setAttribute("readonly", "");
+
+            document.body.appendChild(auxiliar);
+
+            auxiliar.focus();
+            auxiliar.select();
+            auxiliar.setSelectionRange(0, auxiliar.value.length);
+
+            try {
+                if (document.execCommand("copy")) {
+                    mostrarCopiado(boton);
+                } else {
+                    alert("No se pudo copiar el texto.");
+                }
+            } catch (error) {
+                alert("No se pudo copiar el texto.");
+            }
+
+            document.body.removeChild(auxiliar);
+        }
+
+        function mostrarCopiado(boton) {
+            const textoOriginal = boton.textContent.trim();
+
+            boton.textContent = "¡Copiado!";
+            boton.classList.add("copiado");
+
+            setTimeout(() => {
+                boton.textContent = textoOriginal;
+                boton.classList.remove("copiado");
+            }, 1800);
+        }
+    </script>
+
+</body>
+</html>
